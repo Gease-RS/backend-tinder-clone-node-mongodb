@@ -1,8 +1,19 @@
-import { Request, Response, Router } from "express";
-import { tinderCardController } from "./controllers/tinderCardController";
+import { Router } from "express";
+import {
+  addCard,
+  deleteCard,
+  getCards,
+  updateCard,
+} from "./controllers/tinderCardController";
 
 const router: Router = Router();
 
-router.get("/", tinderCardController.home);
+router.get("/cards", getCards);
 
-export { router };
+router.post("/novo-card", addCard);
+
+router.put("/edit-card/:id", updateCard);
+
+router.delete("/delete-card/:id", deleteCard);
+
+export default router;

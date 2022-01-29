@@ -23,5 +23,9 @@ npm i --save-dev @types/cors
 ```
 
 ```bash
-yarn add -D typescript
+npm install -D typescript
+```
+
+```bash
+npm install dotenv
 ```
