@@ -1,6 +1,6 @@
 import { Router } from "express";
 import {
-  addCard,
+  createCard,
   deleteCard,
   getCards,
   updateCard,
@@ -10,7 +10,7 @@ const router: Router = Router();
 
 router.get("/cards", getCards);
 
-router.post("/novo-card", addCard);
+router.post("/novo-card", createCard);
 
 router.put("/edit-card/:id", updateCard);
 

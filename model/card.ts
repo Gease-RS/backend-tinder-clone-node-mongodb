@@ -1,21 +1,14 @@
-import { model, Schema, Document } from "mongoose";
+import mongoose, { Schema } from "mongoose";
+import ICard from "../interfaces/ICard";
 
-export interface ICard extends Document {
-  name: String;
-  url: string;
-}
-
-const schema = new Schema({
-  name: {
-    type: String,
-    required: true,
+const cardSchema: Schema = new Schema(
+  {
+    cardname: { type: String, required: true },
+    urlavatar: { type: String, required: true },
   },
-  url: {
-    type: String,
-    required: true,
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
-const Card = model<ICard>("Card", schema);
-
-export default Card;
+export default mongoose.model<ICard>("Card", cardSchema);

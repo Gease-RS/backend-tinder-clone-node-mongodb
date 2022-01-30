@@ -1,4 +1,5 @@
 import { Response, Request } from "express";
+import mongoose from "mongoose";
 import Card from "../model/card";
 
 const getCards = async (req: Request, res: Response): Promise<void> => {
@@ -10,23 +11,28 @@ const getCards = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const addCard = async (req: Request, res: Response) => {
-  try {
-    const body = req.body;
-    const card = await Card.create({
-      name: body.name,
-      url: body.url,
+const createCard = async (req: Request, res: Response) => {
+  let body = req.body;
+  const { cardname, urlavatar } = body;
+  const newCard = new Card({
+    _id: new mongoose.Types.ObjectId(),
+    cardname,
+    urlavatar,
+  });
+
+  return newCard
+    .save()
+    .then((result) => {
+      return res.status(201).json({
+        card: result,
+      });
+    })
+    .catch((error) => {
+      return res.status(500).json({
+        message: error.message,
+        error,
+      });
     });
-
-    const newCard = await card.save();
-    const allCards = await Card.find();
-
-    res
-      .status(201)
-      .json({ message: "Card added", card: newCard, cards: allCards });
-  } catch (error) {
-    throw error;
-  }
 };
 
 const updateCard = async (req: Request, res: Response): Promise<void> => {
@@ -61,4 +67,4 @@ const deleteCard = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-export { getCards, addCard, updateCard, deleteCard };
+export { getCards, createCard, updateCard, deleteCard };
