@@ -1,30 +1,30 @@
 import { Response, Request } from "express";
 import mongoose from "mongoose";
-import Card from "../model/card";
+import People from "../model/people";
 
-const getCards = async (req: Request, res: Response): Promise<void> => {
+const getPeoples = async (req: Request, res: Response): Promise<void> => {
   try {
-    const cards = await Card.find();
-    res.status(200).json({ cards });
+    const peoples = await People.find();
+    res.status(200).json({ peoples });
   } catch (error) {
     throw error;
   }
 };
 
-const createCard = async (req: Request, res: Response) => {
+const createPeople = async (req: Request, res: Response) => {
   let body = req.body;
-  const { cardname, urlavatar } = body;
-  const newCard = new Card({
+  const { name, url } = body;
+  const newPeople = new People({
     _id: new mongoose.Types.ObjectId(),
-    cardname,
-    urlavatar,
+    name,
+    url,
   });
 
-  return newCard
+  return newPeople
     .save()
     .then((result) => {
       return res.status(201).json({
-        card: result,
+        people: result,
       });
     })
     .catch((error) => {
@@ -35,36 +35,36 @@ const createCard = async (req: Request, res: Response) => {
     });
 };
 
-const updateCard = async (req: Request, res: Response): Promise<void> => {
+const updatePeople = async (req: Request, res: Response): Promise<void> => {
   try {
     const {
       params: { id },
       body,
     } = req;
-    const updateCard = await Card.findByIdAndUpdate({ _id: id }, body);
-    const allCards = await Card.find();
+    const updatePeople = await People.findByIdAndUpdate({ _id: id }, body);
+    const allPeoples = await People.find();
     res.status(200).json({
-      message: "Card updated",
-      card: updateCard,
-      cards: allCards,
+      message: "People updated",
+      people: updatePeople,
+      peoples: allPeoples,
     });
   } catch (error) {
     throw error;
   }
 };
 
-const deleteCard = async (req: Request, res: Response): Promise<void> => {
+const deletePeople = async (req: Request, res: Response): Promise<void> => {
   try {
-    const deletedCard = await Card.findByIdAndRemove(req.params.id);
-    const allCards = await Card.find();
+    const deletedPeople = await People.findByIdAndRemove(req.params.id);
+    const allPeoples = await People.find();
     res.status(200).json({
-      message: "Card deleted",
-      card: deletedCard,
-      cards: allCards,
+      message: "People deleted",
+      people: deletedPeople,
+      peoples: allPeoples,
     });
   } catch (error) {
     throw error;
   }
 };
 
-export { getCards, createCard, updateCard, deleteCard };
+export { getPeoples, createPeople, updatePeople, deletePeople };

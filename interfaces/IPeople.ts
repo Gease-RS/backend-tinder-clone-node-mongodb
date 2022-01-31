@@ -1,6 +1,6 @@
 import { Document } from "mongoose";
 
-export default interface ICard extends Document {
+export default interface IPeople extends Document {
   name: string;
   url: string;
 }

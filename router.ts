@@ -1,19 +1,19 @@
 import { Router } from "express";
 import {
-  createCard,
-  deleteCard,
-  getCards,
-  updateCard,
+  createPeople,
+  deletePeople,
+  getPeoples,
+  updatePeople,
 } from "./controllers/tinderCardController";
 
 const router: Router = Router();
 
-router.get("/cards", getCards);
+router.get("/peoples", getPeoples);
 
-router.post("/novo-card", createCard);
+router.post("/novo-people", createPeople);
 
-router.put("/edit-card/:id", updateCard);
+router.put("/edit-people/:id", updatePeople);
 
-router.delete("/delete-card/:id", deleteCard);
+router.delete("/delete-people/:id", deletePeople);
 
 export default router;
