@@ -5,7 +5,9 @@ import People from "../model/people";
 const getPeoples = async (req: Request, res: Response): Promise<void> => {
   try {
     const peoples = await People.find();
-    res.status(200).json({ peoples });
+    res.status(200).json({
+      peoples,
+    });
   } catch (error) {
     throw error;
   }
